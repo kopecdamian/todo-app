@@ -1,5 +1,7 @@
 from django.shortcuts import render
+from .models import Task
 
 # Create your views here.
-def index(request):
-    return render(request, 'todos/index.html')
+def all_tasks(request):
+    tasks = Task.objects.all()
+    return render(request, 'todos/all_tasks.html', {'tasks': tasks})
