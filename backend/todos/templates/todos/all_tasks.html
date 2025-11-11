@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
                 {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link" href="">Dodaj zadanie</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'task_create' %}">Dodaj zadanie</a></li>
                     <li class="nav-item"><a class="nav-link" href="">Wyloguj</a></li>
                 {% else %}
                     <li class="nav-item"><a class="nav-link" href="">Zaloguj</a></li>
@@ -33,12 +33,12 @@
                     <th>Tytuł</th>
                     <th>Opis</th>
                     <th>Ukończone</th>
-                    <th>Data utworzenia</th>
+                    <th>Data</th>
                 </tr>
             </thead>
             <tbody>
                 {% for task in tasks %}
-                    <tr>
+                    <tr onclick=taskDetail({{task.pk}}) style="cursor: pointer;">
                         <td>{{ task.title }}</td>
                         <td>{{ task.description }}</td>
                         <td>
@@ -48,7 +48,7 @@
                                 <span class="badge bg-warning text-dark">Nie</span>
                             {% endif %}
                         </td>
-                        <td>{{ task.created_at|date:"Y-m-d H:i" }}</td>
+                        <td>{{ task.due_date }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
@@ -59,4 +59,9 @@
 </div>
 
 </body>
+<script>
+    function taskDetail(id) {
+        window.location.href = `/todos/${id}`;
+    }
+</script>
 </html>
